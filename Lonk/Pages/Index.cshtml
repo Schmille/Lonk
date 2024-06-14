@@ -1,0 +1,68 @@
+﻿@page
+@model Lonk.Pages.IndexModel
+<head>
+    <title>Lonk</title>
+    <link rel="stylesheet" href="~/css/global.css" />
+    <link rel="stylesheet" href="~/css/pico.pumpkin.min.css" />
+    <link rel="icon" href="~/bx-share-alt.svg">
+</head>
+<main class="container">
+    <h1>Lonk: the link elongator</h1>
+    <p>You have heared of link shorteners, now get ready for link elongators! 🙌</p>
+    <p>Bother your friends and family! Vaguely annoy random people on the internet! 🤣</p>
+    <p>Forget everything you know about Links! Use superior lonk technology today! <a style="text-decoration: none;" target="_blank" href="https://youtu.be/gsNaR6FRuO0?autoplay=1">🖨️</a></p>
+    <p>Embrace the <i>blazingly fast</i> (<a style="text-decoration: none;" target="_blank" href="https://www.youtube.com/watch?v=5WyLhwYFgmk?autoplay=1">🔥</a>) power of long!</p>
+    <p style="font-family: Courier New, Courier, monospace">// Todo: add more buzzwords and emoji</p>
+    <br />
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <label>
+                Normal (boring) Link
+                <input type="url" name="LongLink" placeholder="URL" aria-label="Url" />
+            </label>
+            <label>
+                Delay in seconds.
+                <small>(Adjust this for extra annoyance if needed)</small>
+                <input type="number" name="Delay" placeholder="0" value="0" aria-label="delay in seconds" max="10" min="0" />
+            </label>
+            <button type="submit">Elongate</button>
+        </fieldset>
+    </form>
+
+    @if (Model.Elongated != null)
+    {
+        <script>
+            function copy() {
+                const link = document.getElementById("lonk");
+                const copyBtn = document.getElementById("copy-btn");
+                const copyMsg = document.getElementById("copy-msg");
+
+                navigator.clipboard.writeText(link.innerHTML);
+                copyBtn.disabled = true;
+                copyMsg.style = "padding: 0; margin: 0;";
+
+                setTimeout(() => {
+                    copyMsg.style = "visibility: hidden;";
+                    copyBtn.disabled = false;
+                }, 2500);
+            }
+        </script>
+        <article>
+            <header>New (superior) Lonk&trade;</header>
+            <a id="lonk" target="_blank" href="@Model.Elongated">@Model.Elongated</a>
+            <footer style="display: flex; gap:20px; align-items: center;">
+                <button id="copy-btn" onclick="copy()">Copy lonk</button><p style="visibility: hidden;" id="copy-msg">Copied !</p>
+            </footer>
+        </article>
+    }
+
+    <footer class="grid">
+        <p><img src="~/bx-paint.svg"/> Styles by <a target="_blank" href="https://picocss.com/">Pico CSS</a> (MIT License)</p>
+        <p><img src="~/bx-image.svg"/> Icons by <a target="_blank" href="https://boxicons.com/">Boxicons</a> (MIT License)</p>
+        <p><img src="~/bxl-github.svg" /> Witness the insanity on <a target="_blank" href="https://github.com/Schmille/Lonk">Github</a></p>
+    </footer>
+</main>
+
+
