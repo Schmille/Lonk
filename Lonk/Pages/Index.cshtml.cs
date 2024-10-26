@@ -40,7 +40,7 @@ namespace Lonk.Pages
             // Make sure input is 0 <= x <= 10000 (ms)
             int elongation = Math.Clamp((int)Delay, 0, 10_000);
 
-            if (await Manager.IsBlockedHostAsync(link))
+            if (Manager.IsBlockedHost(link))
                 return Page();
 
             string linkId = await Manager.CreateLinkAsync(link, elongation);

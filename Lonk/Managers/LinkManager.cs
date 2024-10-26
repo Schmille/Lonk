@@ -1,4 +1,5 @@
-﻿using Lonk.Models;
+﻿using Lonk.Managers;
+using Lonk.Models;
 using System.Text;
 
 namespace Lonk.Services
@@ -8,12 +9,12 @@ namespace Lonk.Services
     public class LinkManager
     {
         private readonly ILinkRepository LinkRepo;
-        private readonly IBlocklistRepo BlocklistRepo;
+        private readonly BlocklistManager BlockManager;
 
-        public LinkManager(ILinkRepository linkRepo, IBlocklistRepo blocklistRepo)
+        public LinkManager(ILinkRepository linkRepo, BlocklistManager blocklistManager)
         {
             this.LinkRepo = linkRepo;
-            BlocklistRepo = blocklistRepo;
+            BlockManager = blocklistManager;
         }
 
         public async Task<string> CreateLinkAsync(Uri linkUri, int elongation)
@@ -36,11 +37,11 @@ namespace Lonk.Services
             return new LongLinkData(link.RedirectUrl, link.ElongationTime);
         }
 
-        public async Task<bool> IsBlockedHostAsync(Uri uri)
+        public bool IsBlockedHost(Uri uri)
         {
             string host = uri.Host;
 
-            return await BlocklistRepo.ExistsAsync(host);
+            return BlockManager.IsInBlocklist(host);
         }
 
         private string GenRandomId()

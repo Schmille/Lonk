@@ -1,3 +1,4 @@
+using Lonk.Managers;
 using Lonk.Models;
 using Lonk.Services;
 
@@ -22,7 +23,10 @@ namespace Lonk
             builder.Services.AddTransient<ILinkRepository, DbLinkRepo>();
             builder.Services.AddTransient<IBlocklistRepo, DbBlocklistRepo>();
             builder.Services.AddTransient<LinkManager>();
+
             builder.Services.AddSingleton<ILinkCleaner, DbLinkCleaner>();
+            builder.Services.AddSingleton<BlocklistManager>();
+
             builder.Services.AddHostedService<CleanupService>();
             builder.Services.AddRazorPages();
 

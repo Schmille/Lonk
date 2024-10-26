@@ -31,5 +31,12 @@ namespace Lonk.Models
 
             return entry != null;
         }
+
+        public async Task<List<string>> GetAllAsync()
+        {
+            return await Ctx.BlockedHosts
+                .Select(b => b.Hostname)
+                .ToListAsync();
+        }
     }
 }
