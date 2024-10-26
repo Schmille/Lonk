@@ -6,7 +6,7 @@ namespace Lonk.Managers
     public class BlocklistManager
     {
         private readonly IBlocklistRepo BlocklistRepo;
-        private List<Regex> RegexList;
+        private readonly List<Regex> RegexList;
         private Timer Timer;
 
         public BlocklistManager()
